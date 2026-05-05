@@ -499,8 +499,8 @@ Info findings are non-critical informational suggestions (non-translatable strin
 **Rashid Ali**
 - 📍 Karachi, Pakistan
 - 🎓 BSc Computer Science — Shah Abdul Latif University (2023)
-- 🌐 LinkedIn: [linkedin.com/in/rashidali](https://linkedin.com/in/rashidali)
-- 💻 GitHub: [github.com/rashidali](https://github.com/rashidali)
+- 🌐 LinkedIn: [linkedin.com/in/-rashidali](https://linkedin.com/in/-rashidali)
+- 💻 GitHub: [github.com/rashidali](https://github.com/rashidkalwar)
 - 📧 Open to opportunities in SAP ABAP Cloud Development
 
 ### Certifications & Learning
