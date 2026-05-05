@@ -1,0 +1,112 @@
+managed implementation in class ZBP_R_ETMS_PROGRAM unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_ETMS_PROGRAM alias TrainingProgram
+persistent table zetms_program
+extensible
+draft table zetms_program_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+{
+  field ( readonly )
+  ProgramID,
+  CreatedBy,
+  CreatedAt,
+  LastChangedBy,
+  LastChangedAt,
+  LocalLastChangedAt;
+
+  field ( numbering : managed )
+  ProgramID;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation ValidateDates;
+    validation ValidateCapacity;
+    validation Enrollment~ValidateEnrollment;
+    validation Enrollment~ValidateScore;
+  }
+
+  association _Enrollments { create; with draft; }
+
+  determination SetDefaultStatus on modify { create; }
+
+  validation ValidateDates on save { create; update; }
+  validation ValidateCapacity on save { create; update; }
+
+  mapping for zetms_program corresponding extensible
+    {
+      ProgramID          = PROGRAM_ID;
+      ProgramName        = PROGRAM_NAME;
+      CategoryCode       = CATEGORY_CODE;
+      MaxCapacity        = MAX_CAPACITY;
+      CostPerSeat        = COST_PER_SEAT;
+      CurrencyCode       = CURRENCY_CODE;
+      StartDate          = START_DATE;
+      EndDate            = END_DATE;
+      Status             = STATUS;
+      CreatedBy          = CREATED_BY;
+      CreatedAt          = CREATED_AT;
+      LastChangedBy      = LAST_CHANGED_BY;
+      LastChangedAt      = LAST_CHANGED_AT;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    }
+
+}
+
+define behavior for ZR_ETMS_ENROLLMENT alias Enrollment
+persistent table zetms_enrollment
+draft table zetms_enrllmnt_d
+etag master LocalLastChangedAt
+lock dependent by _Program
+authorization dependent by _Program
+{
+  field ( readonly )
+  EnrollmentID,
+  ProgramID,
+  CreatedBy,
+  CreatedAt,
+  LastChangedBy,
+  LastChangedAt,
+  LocalLastChangedAt;
+
+  field ( numbering : managed )
+  EnrollmentID;
+
+  update;
+  delete;
+
+  association _Program { with draft; }
+
+  determination SetEnrollmentDefaults on modify { create; }
+
+  validation ValidateEnrollment on save { create; }
+  validation ValidateScore on save { create; update; }
+
+  mapping for zetms_enrollment corresponding
+    {
+      EnrollmentID       = enrollment_id;
+      ProgramID          = program_id;
+      EmployeeID         = employee_id;
+      EmployeeName       = employee_name;
+      EnrollmentDate     = enrollment_date;
+      Status             = status;
+      CompletionScore    = completion_score;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}

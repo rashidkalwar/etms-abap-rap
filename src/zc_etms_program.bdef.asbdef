@@ -1,0 +1,31 @@
+projection implementation in class ZBP_C_ETMS_PROGRAM unique;
+strict ( 2 );
+extensible;
+use draft;
+use side effects;
+define behavior for ZC_ETMS_PROGRAM alias TrainingProgram
+extensible
+use etag
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+
+  use association _Enrollments { create; with draft; }
+}
+
+define behavior for ZC_ETMS_ENROLLMENT alias Enrollment
+{
+  use update;
+  use delete;
+
+  use association _Program { with draft; }
+
+}

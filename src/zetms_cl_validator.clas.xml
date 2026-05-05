@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZETMS_CL_VALIDATOR</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Business Validator Utility for ETMS</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZETMS_CL_VALIDATOR</CLSNAME>
+     <CMPNAME>CHECK_PROGRAM_CAPACITY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check if program has available capacity</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZETMS_CL_VALIDATOR</CLSNAME>
+     <CMPNAME>CHECK_STATUS_TRANSITION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Validate status transition for enrollment</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,172 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.typeName: 'Training Program'
+@UI.headerInfo.typeNamePlural: 'Training Programs'
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'ProgramName'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'Status'
+annotate view ZC_ETMS_PROGRAM with
+{
+  @UI.facet: [ {
+    label: 'General Information',
+    id: 'GeneralInfo',
+    purpose: #STANDARD,
+    position: 10 ,
+    type: #IDENTIFICATION_REFERENCE
+  }, {
+  label: 'Enrollments',
+  id: 'Enrollments',
+  position: 20,
+  type: #LINEITEM_REFERENCE,
+  targetElement: '_Enrollments'
+  } ]
+
+  @UI.identification: [ {
+    position: 10 ,
+    label: 'ProgramID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 ,
+    label: 'ProgramID'
+  } ]
+  ProgramID;
+
+  @UI.identification: [ {
+    position: 20,
+    label: 'Program Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 20,
+    label: 'Program Name'
+  } ]
+  @UI.selectionField: [ {
+    position: 10
+  } ]
+  ProgramName;
+
+  @UI.identification: [ {
+    position: 30,
+    label: 'Category'
+  } ]
+  @UI.lineItem: [ {
+    position: 30,
+    label: 'Category'
+  } ]
+  @UI.selectionField: [ {
+    position: 20
+  } ]
+  @Consumption.valueHelpDefinition: [ {
+    entity.name: 'ZI_ETMS_CATEGORY',
+    entity.element: 'CategoryCode'
+  } ]
+  CategoryCode;
+
+  @UI.identification: [ {
+    position: 40,
+    label: 'Max Capacity'
+  } ]
+  @UI.lineItem: [ {
+    position: 40,
+    label: 'Max Capacity'
+  } ]
+  MaxCapacity;
+
+  @UI.identification: [ {
+    position: 50,
+    label: 'Cost Per Seat'
+  } ]
+  CostPerSeat;
+
+  @EndUserText.label: 'Currency'
+  @UI.identification: [ {
+    position: 60 ,
+    label: 'Currency'
+  } ]
+  CurrencyCode;
+
+  @EndUserText.label: 'Start Date'
+  @UI.identification: [ {
+    position: 70 ,
+    label: 'Start Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 70 ,
+    label: 'Start Date'
+  } ]
+  @UI.selectionField: [ {
+    position: 30
+  } ]
+  StartDate;
+
+  @EndUserText.label: 'End Date'
+  @UI.identification: [ {
+    position: 80 ,
+    label: 'End Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 80 ,
+    label: 'End Date'
+  } ]
+  EndDate;
+
+  @UI.identification: [ {
+    position: 90,
+    label: 'Status'
+  } ]
+  @UI.lineItem: [ {
+    position: 90,
+    label: 'Status'
+  } ]
+  @UI.selectionField: [ {
+    position: 40
+  } ]
+  @Consumption.valueHelpDefinition: [ {
+    entity.name: 'ZI_ETMS_PROG_STATUS_VH',
+    entity.element: 'Status'
+  } ]
+  Status;
+
+  @UI.identification: [ {
+    position: 100,
+    label: 'Created By'
+  } ]
+  CreatedBy;
+
+  @UI.identification: [ {
+    position: 110,
+    label: 'Created At'
+  } ]
+  CreatedAt;
+
+  @UI.identification: [ {
+    position: 120,
+    label: 'Last Changed By'
+  } ]
+  LastChangedBy;
+
+  @UI.identification: [ {
+    position: 130,
+    label: 'Last Changed At'
+  } ]
+  LastChangedAt;
+
+  @UI.identification: [ {
+    position: 140,
+    label: 'Local Last Changed At'
+  } ]
+  LocalLastChangedAt;
+
+  @EndUserText.label: '_BaseEntity'
+  @UI.identification: [ {
+    position: 150 ,
+    label: '_BaseEntity'
+  } ]
+  @UI.lineItem: [ {
+    position: 150 ,
+    label: '_BaseEntity'
+  } ]
+  @UI.selectionField: [ {
+    position: 150
+  } ]
+  _BaseEntity;
+}

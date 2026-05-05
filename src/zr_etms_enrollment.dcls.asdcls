@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZR_ETMS_ENROLLMENT'
+@MappingRole: true
+define role ZR_ETMS_ENROLLMENT {
+  grant select on ZR_ETMS_ENROLLMENT
+  where TRUE;
+}
