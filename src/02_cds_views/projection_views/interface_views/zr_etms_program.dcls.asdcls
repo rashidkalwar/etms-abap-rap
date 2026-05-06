@@ -1,0 +1,6 @@
+@EndUserText.label: 'ZR_ETMS_PROGRAM'
+@MappingRole: true
+define role ZR_ETMS_PROGRAM {
+  grant select on ZR_ETMS_PROGRAM
+  where TRUE;
+}

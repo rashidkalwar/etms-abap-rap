@@ -1,6 +1,0 @@
-@EndUserText.label: 'ZC_ETMS_ENROLLMENT'
-@MappingRole: true
-define role ZC_ETMS_ENROLLMENT {
-  grant select on ZC_ETMS_ENROLLMENT
-  where INHERITING CONDITIONS FROM ENTITY ZR_ETMS_ENROLLMENT REPLACING { ROOT WITH _BaseEntity };
-}

@@ -1,6 +1,0 @@
-@EndUserText.label: 'ZC_ETMS_PROGRAM'
-@MappingRole: true
-define role ZC_ETMS_PROGRAM {
-  grant select on ZC_ETMS_PROGRAM
-  where INHERITING CONDITIONS FROM ENTITY ZR_ETMS_PROGRAM REPLACING { ROOT WITH _BaseEntity };
-}

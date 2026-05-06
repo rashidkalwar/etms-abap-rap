@@ -1,0 +1,130 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.typeName: 'Enrollment'
+@UI.headerInfo.typeNamePlural: 'Enrollments'
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'EmployeeName'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'Status'
+annotate view ZC_ETMS_ENROLLMENT with
+{
+  @EndUserText.label: 'EnrollmentID'
+  @UI.facet: [ {
+    label: 'Enrollment Details',
+    id: 'EnrollmentDetails',
+    purpose: #STANDARD,
+    position: 10 ,
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.lineItem: [
+    { position: 10, label: 'Enrollment ID' }
+  ]
+
+  @UI.identification: [ {
+    position: 10 ,
+    label: 'Enrollment ID'
+  } ]
+  EnrollmentID;
+
+  @EndUserText.label: 'Program ID'
+  @UI.identification: [ {
+    position: 20 ,
+    label: 'Program ID'
+  } ]
+  ProgramID;
+
+  @EndUserText.label: 'Employee ID'
+  @UI.identification: [ {
+    position: 30 ,
+    label: 'Employee ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 ,
+    label: 'Employee ID'
+  } ]
+  @UI.selectionField: [ {
+    position: 10
+  } ]
+  EmployeeID;
+
+  @EndUserText.label: 'Employee Name'
+  @UI.identification: [ {
+    position: 40 ,
+    label: 'Employee Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 ,
+    label: 'Employee Name'
+  } ]
+  @UI.selectionField: [ {
+    position: 20
+  } ]
+  EmployeeName;
+
+  @EndUserText.label: 'Enrollment Date'
+  @UI.identification: [ {
+    position: 50 ,
+    label: 'Enrollment Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 ,
+    label: 'Enrollment Date'
+  } ]
+  EnrollmentDate;
+
+  @UI.identification: [ {
+    position: 60,
+    label: 'Status'
+  } ]
+  @UI.lineItem: [ {
+    position: 60,
+    label: 'Status'
+  } ]
+  @UI.selectionField: [ {
+    position: 30
+  } ]
+  @Consumption.valueHelpDefinition: [ {
+    entity.name: 'ZI_ETMS_ENRL_STATUS_VH',
+    entity.element: 'Status'
+  } ]
+  Status;
+
+  @UI.identification: [ {
+    position: 70,
+    label: 'Completion Score'
+  } ]
+  @UI.lineItem: [ {
+    position: 70,
+    label: 'Completion Score'
+  } ]
+  CompletionScore;
+
+  @UI.identification: [ {
+    position: 80,
+    label: 'Created By'
+  } ]
+  CreatedBy;
+
+  @UI.identification: [ {
+    position: 90,
+    label: 'Created At'
+  } ]
+  CreatedAt;
+
+  @UI.identification: [ {
+    position: 100,
+    label: 'Last Changed By'
+  } ]
+  LastChangedBy;
+
+  @UI.identification: [ {
+    position: 110,
+    label: 'Last Changed At'
+  } ]
+  LastChangedAt;
+
+  @UI.identification: [ {
+    position: 120,
+    label: 'Local Last Changed At'
+  } ]
+  LocalLastChangedAt;
+}

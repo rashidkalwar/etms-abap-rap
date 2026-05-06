@@ -1,9 +1,9 @@
 # 🎓 Employee Training Management System (ETMS)
+
 ### SAP ABAP Cloud · RESTful Application Programming Model (RAP) · OData V4 · Fiori Elements
 
 ---
 
-<!-- SCREENSHOT: Take a full-page screenshot of your Fiori List Report showing the Training Programs list with a few records. Save as: docs/screenshots/01_program_list.png -->
 ![Training Programs List](docs/screenshots/01_program_list.png)
 
 ---
@@ -133,94 +133,89 @@ ZR_ETMS_PROGRAM (Root — lock master)
 
 ### Table Details
 
-| Table | Type | Purpose |
-|-------|------|---------|
-| `ZETMS_CATEGORY` | Delivery Class C (Config) | Reference data — training categories |
-| `ZETMS_PROGRAM` | Delivery Class A (Application) | Training programs — main transactional table |
+| Table              | Type                           | Purpose                                          |
+| ------------------ | ------------------------------ | ------------------------------------------------ |
+| `ZETMS_CATEGORY`   | Delivery Class C (Config)      | Reference data — training categories             |
+| `ZETMS_PROGRAM`    | Delivery Class A (Application) | Training programs — main transactional table     |
 | `ZETMS_ENROLLMENT` | Delivery Class A (Application) | Employee enrollments — child transactional table |
-| `ZETMS_PROGRAM_D` | Draft Table | Draft buffer for programs |
-| `ZETMS_ENRLLMNT_D` | Draft Table | Draft buffer for enrollments |
+| `ZETMS_PROGRAM_D`  | Draft Table                    | Draft buffer for programs                        |
+| `ZETMS_ENRLLMNT_D` | Draft Table                    | Draft buffer for enrollments                     |
 
 ### Reusable Foundation Objects
 
-| Object | Type | Purpose |
-|--------|------|---------|
-| `ZETMS_D_PROG_STATUS` | Domain | Fixed values: PLAN, ACTV, CNCL, COMP |
-| `ZETMS_D_ENRL_STATUS` | Domain | Fixed values: PLAN, ENRL, COMP, CNCL |
-| `ZETMS_ADMIN_STR` | Include Structure | Reusable admin fields (created_by, changed_at, etc.) |
-| `ZETMS_DE_*` (8 objects) | Data Elements | Business-meaningful field types with UI labels |
+| Object                   | Type              | Purpose                                              |
+| ------------------------ | ----------------- | ---------------------------------------------------- |
+| `ZETMS_D_PROG_STATUS`    | Domain            | Fixed values: PLAN, ACTV, CNCL, COMP                 |
+| `ZETMS_D_ENRL_STATUS`    | Domain            | Fixed values: PLAN, ENRL, COMP, CNCL                 |
+| `ZETMS_ADMIN_STR`        | Include Structure | Reusable admin fields (created_by, changed_at, etc.) |
+| `ZETMS_DE_*` (8 objects) | Data Elements     | Business-meaningful field types with UI labels       |
 
 ---
 
 ## 🛠️ Technical Stack
 
-| Technology | Usage |
-|------------|-------|
-| **ABAP Cloud** | Core development language — strict cloud ABAP rules |
-| **RAP Managed Scenario** | Business Object framework with automatic CRUD |
-| **CDS Views** | Data modelling, associations, projections, value helps |
-| **OData V4** | Service protocol for Fiori UI consumption |
-| **Fiori Elements** | List Report + Object Page UI pattern |
-| **Draft Handling** | Optimistic locking, save/discard workflow |
-| **ABAP Unit Testing** | Automated tests with setup/teardown lifecycle |
-| **ATC (ABAP Test Cockpit)** | Static code analysis and quality checks |
-| **SAP BTP** | Cloud runtime environment |
-| **Eclipse ADT** | Development tooling |
+| Technology                  | Usage                                                  |
+| --------------------------- | ------------------------------------------------------ |
+| **ABAP Cloud**              | Core development language — strict cloud ABAP rules    |
+| **RAP Managed Scenario**    | Business Object framework with automatic CRUD          |
+| **CDS Views**               | Data modelling, associations, projections, value helps |
+| **OData V4**                | Service protocol for Fiori UI consumption              |
+| **Fiori Elements**          | List Report + Object Page UI pattern                   |
+| **Draft Handling**          | Optimistic locking, save/discard workflow              |
+| **ABAP Unit Testing**       | Automated tests with setup/teardown lifecycle          |
+| **ATC (ABAP Test Cockpit)** | Static code analysis and quality checks                |
+| **SAP BTP**                 | Cloud runtime environment                              |
+| **Eclipse ADT**             | Development tooling                                    |
 
 ---
 
 ## ✨ Key Features
 
 ### 1. Draft-Enabled Transactional UI
+
 Full draft support allowing users to save incomplete work, navigate away, and return to continue editing. Draft state is maintained per user with conflict detection via ETag/optimistic locking.
 
-<!-- SCREENSHOT: Show a program in draft state — you should see a draft indicator icon next to the record in the list. Save as: docs/screenshots/02_draft_indicator.png -->
 ![Draft State](docs/screenshots/02_draft_indicator.png)
 
 ### 2. Parent-Child Composition (Program → Enrollments)
+
 Training Programs contain Enrollments as a composition child. The Enrollments section appears as an embedded table on the Program object page. Creating/deleting a Program cascades through to its Enrollments.
 
-<!-- SCREENSHOT: Open a Training Program object page showing the Enrollments table section at the bottom with some enrollment records. Save as: docs/screenshots/03_enrollment_section.png -->
 ![Enrollment Section](docs/screenshots/03_enrollment_section.png)
 
 ### 3. Server-Side Validations
+
 All business rules are enforced server-side in the RAP behavior implementation — they cannot be bypassed by API calls:
 
-<!-- SCREENSHOT: Trigger the date validation — set end date before start date and try to save. Capture the red error message. Save as: docs/screenshots/04_date_validation.png -->
 ![Date Validation Error](docs/screenshots/04_date_validation.png)
 
-<!-- SCREENSHOT: Trigger the capacity validation — set max capacity to 0 and try to save. Save as: docs/screenshots/05_capacity_validation.png -->
 ![Capacity Validation Error](docs/screenshots/05_capacity_validation.png)
 
 ### 4. Automatic Determinations
+
 Field values are set automatically without user input:
+
 - Program **Status** defaults to "Planned" on creation
 - Enrollment **Date** defaults to today's date on creation
 - Enrollment **Status** defaults to "Planned" on creation
 
 ### 5. Value Help Dropdowns
+
 All status fields and category codes have proper dropdown value helps:
 
-<!-- SCREENSHOT: Click on the Status field when creating/editing a program — show the dropdown with Planned, Active, Cancelled, Completed options. Save as: docs/screenshots/06_status_dropdown.png -->
 ![Status Dropdown](docs/screenshots/06_status_dropdown.png)
 
-<!-- SCREENSHOT: Click on the Category Code field — show the dropdown with your 5 categories. Save as: docs/screenshots/07_category_dropdown.png -->
 ![Category Dropdown](docs/screenshots/07_category_dropdown.png)
 
 ### 6. Custom Exception Handling
+
 A typed custom exception class `ZCX_ETMS_ERROR` provides structured error handling with dynamic message placeholders, used by the `ZETMS_CL_VALIDATOR` utility class for capacity and status transition checks.
 
 ### 7. ABAP Unit Tests — 5 Tests Passing
+
 Comprehensive unit tests with AAA pattern (Arrange, Act, Assert), full setup/teardown lifecycle, and both positive and negative test scenarios.
 
-<!-- SCREENSHOT: Run the unit tests (right-click ZETMS_CL_VALIDATOR → Run As → ABAP Unit Test) and take a screenshot of the results panel showing all 5 tests passing (green). Save as: docs/screenshots/08_unit_tests_passing.png -->
 ![Unit Tests Passing](docs/screenshots/08_unit_tests_passing.png)
-
-### 8. Clean ATC Results
-Zero errors and zero warnings from the ABAP Test Cockpit static analysis.
-
-<!-- SCREENSHOT: Run ATC on the ZLOCAL package and screenshot the results showing 0 errors, 0 warnings (only infos). Save as: docs/screenshots/09_atc_results.png -->
-![ATC Results](docs/screenshots/09_atc_results.png)
 
 ---
 
@@ -310,6 +305,7 @@ etms-abap-rap/
 ## 📚 Core Concepts Demonstrated
 
 ### RAP Managed Scenario
+
 ```abap
 managed implementation in class ZBP_R_ETMS_PROGRAM unique;
 strict ( 2 );
@@ -336,6 +332,7 @@ etag master LocalLastChangedAt
 ```
 
 ### CDS Composition Tree
+
 ```abap
 -- Parent (root)
 define root view entity ZR_ETMS_PROGRAM
@@ -350,6 +347,7 @@ define view entity ZR_ETMS_ENROLLMENT
 ```
 
 ### RAP Validation Pattern
+
 ```abap
 METHOD validate_dates.
   READ ENTITIES OF zr_etms_program IN LOCAL MODE
@@ -381,6 +379,7 @@ ENDMETHOD.
 ```
 
 ### Custom Exception Class Usage
+
 ```abap
 -- Raise with typed constant and dynamic message variable
 RAISE EXCEPTION TYPE zcx_etms_error
@@ -397,6 +396,7 @@ ENDTRY.
 ```
 
 ### ABAP Unit Test Pattern (AAA)
+
 ```abap
 METHOD check_capacity_fail.
   " ARRANGE — create program at full capacity
@@ -423,17 +423,17 @@ ENDMETHOD.
 
 ## ✅ Business Rules & Validations
 
-| Rule | Type | Implementation |
-|------|------|---------------|
-| End date must be after start date | Validation | `ValidateDates` — fires on create/update |
-| Max capacity must be greater than zero | Validation | `ValidateCapacity` — fires on create/update |
-| Employee cannot enroll twice in same program | Validation | `ValidateEnrollment` — fires on create |
-| Completion score must be between 0 and 100 | Validation | `ValidateScore` — fires on create/update |
-| Program status defaults to "Planned" on creation | Determination | `SetDefaultStatus` — fires on modify/create |
+| Rule                                                | Type          | Implementation                                   |
+| --------------------------------------------------- | ------------- | ------------------------------------------------ |
+| End date must be after start date                   | Validation    | `ValidateDates` — fires on create/update         |
+| Max capacity must be greater than zero              | Validation    | `ValidateCapacity` — fires on create/update      |
+| Employee cannot enroll twice in same program        | Validation    | `ValidateEnrollment` — fires on create           |
+| Completion score must be between 0 and 100          | Validation    | `ValidateScore` — fires on create/update         |
+| Program status defaults to "Planned" on creation    | Determination | `SetDefaultStatus` — fires on modify/create      |
 | Enrollment status defaults to "Planned" on creation | Determination | `SetEnrollmentDefaults` — fires on modify/create |
-| Enrollment date defaults to today on creation | Determination | `SetEnrollmentDefaults` — fires on modify/create |
-| Capacity check before enrollment | Utility | `ZETMS_CL_VALIDATOR→check_program_capacity` |
-| Status transition rules enforced | Utility | `ZETMS_CL_VALIDATOR→check_status_transition` |
+| Enrollment date defaults to today on creation       | Determination | `SetEnrollmentDefaults` — fires on modify/create |
+| Capacity check before enrollment                    | Utility       | `ZETMS_CL_VALIDATOR→check_program_capacity`      |
+| Status transition rules enforced                    | Utility       | `ZETMS_CL_VALIDATOR→check_status_transition`     |
 
 ### Valid Status Transitions (Enrollment)
 
@@ -449,13 +449,13 @@ PLAN ──► ENRL ──► COMP
 
 ### ABAP Unit Tests
 
-| Test Method | Scenario | Expected Result |
-|-------------|----------|-----------------|
-| `check_capacity_pass` | Program with 5 capacity, 0 enrollments | No exception raised |
-| `check_capacity_fail` | Program with 2 capacity, 2 enrollments | `capacity_exceeded` exception |
-| `check_transition_valid` | PLAN → ENRL transition | No exception raised |
-| `check_transition_invalid` | COMP → PLAN transition | `invalid_status_transition` exception |
-| `check_program_not_found` | Non-existent program UUID | `program_not_found` exception |
+| Test Method                | Scenario                               | Expected Result                       |
+| -------------------------- | -------------------------------------- | ------------------------------------- |
+| `check_capacity_pass`      | Program with 5 capacity, 0 enrollments | No exception raised                   |
+| `check_capacity_fail`      | Program with 2 capacity, 2 enrollments | `capacity_exceeded` exception         |
+| `check_transition_valid`   | PLAN → ENRL transition                 | No exception raised                   |
+| `check_transition_invalid` | COMP → PLAN transition                 | `invalid_status_transition` exception |
+| `check_program_not_found`  | Non-existent program UUID              | `program_not_found` exception         |
 
 **Results: 5/5 Tests Passing ✅**
 
@@ -472,6 +472,7 @@ Info findings are non-critical informational suggestions (non-translatable strin
 > **Note:** This project runs on SAP BTP ABAP Environment. It cannot be run locally — an SAP BTP ABAP trial or licensed system is required.
 
 ### Prerequisites
+
 - SAP BTP ABAP Environment (Trial or Licensed)
 - Eclipse IDE with ADT (ABAP Development Tools) plugin
 - SAP BTP subaccount with ABAP service instance
@@ -497,18 +498,24 @@ Info findings are non-critical informational suggestions (non-translatable strin
 ## 👨‍💻 Author
 
 **Rashid Ali**
+
 - 📍 Karachi, Pakistan
-- 🎓 BSc Computer Science — Shah Abdul Latif University (2023)
+- 🎓 BSc Computer Science — Shah Abdul Latif University (2024)
 - 🌐 LinkedIn: [linkedin.com/in/-rashidali](https://linkedin.com/in/-rashidali)
-- 💻 GitHub: [github.com/rashidali](https://github.com/rashidkalwar)
+- 💻 GitHub: [github.com/rashidkalwar](https://github.com/rashidkalwar)
 - 📧 Open to opportunities in SAP ABAP Cloud Development
 
 ### Certifications & Learning
-- SAP Certified Backend Developer — ABAP Cloud *(In Progress)*
-- Acquiring Core ABAP Skills — SAP Learning *(Completed)*
-- Google Data Analytics Professional Certificate
-- IBM DevOps and Software Engineering Professional Certificate
-- Meta Backend Developer Professional Certificate
+
+- SAP Certified Backend Developer — ABAP Cloud _(In Progress)_
+- Learning Basic ABAP Programming — SAP Learning _(Completed)_
+- Deepening Your ABAP Programming Knowledge — SAP Learning _(Completed)_
+- Building Data Models with the ABAP Dictionary and ABAP Core Data Services — SAP Learning _(Completed)_
+- Practicing Clean Core Extensibility for SAP S/4HANA Cloud _(Completed)_
+- Google Data Analytics Specialization
+- IBM Introduction to DevOps Certificate
+- Introduction to Agile Development and Scrum Certificate
+- Meta ntroduction to Back-End Development Certificate
 - IELTS Band 7
 
 ---
@@ -519,4 +526,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-*Built with ❤️ on SAP BTP · ABAP Cloud · RAP*
+_Built with ❤️ on SAP BTP · ABAP Cloud · RAP_
